@@ -3,8 +3,8 @@
  */
 
 // Config Init
-if (typeof BLOCK_GAME_WIDTH == 'undefined') var BLOCK_GAME_WIDTH = 480;
-if (typeof BLOCK_GAME_HEIGHT == 'undefined') var BLOCK_GAME_HEIGHT = 640;
+if (typeof BLOCK_GAME_WIDTH == 'undefined') var BLOCK_GAME_WIDTH = 1120;
+if (typeof BLOCK_GAME_HEIGHT == 'undefined') var BLOCK_GAME_HEIGHT = 1120;
 if (typeof BLOCK_GAME_FPS == 'undefined') var BLOCK_GAME_FPS = 24;
 if (typeof BLOCK_GAME_BALL_SPEED == 'undefined') var BLOCK_GAME_BALL_SPEED = 10;
 if (typeof BLOCK_BAR_MARGIN_BOTTOM == 'undefined') var BLOCK_BAR_MARGIN_BOTTOM = 80;
@@ -20,7 +20,7 @@ if (typeof BLOCK_GAME_MIN_BLOCK_PIXEL == 'undefined') {
 
 enchant();
 var game = new Game(BLOCK_GAME_WIDTH, BLOCK_GAME_HEIGHT);
-game.preload("block_image_front.png", "block_image_back.jpg", "block_image_win.jpg", "block_icon_menu.png", "block_icon_boll.png", "block_icon_panel.png");
+game.preload("block_image_front.png", "block_image_back.png", "block_image_win.jpg", "block_icon_menu.png", "block_icon_boll.png", "block_icon_panel.png");
 game.fps = BLOCK_GAME_FPS;
 game.mode = 0; // WAIT FIRST START
 
@@ -244,7 +244,7 @@ window.onload = function()
     game.onload = function()
     {
     imgFront = game.assets["block_image_front.png"]._element;
-    imgBack = game.assets["block_image_back.jpg"]._element;
+    imgBack = game.assets["block_image_back.png"]._element;
     imgWin = game.assets["block_image_win.jpg"]._element;
 
     // ゲームスタート・リスタート ボタン
