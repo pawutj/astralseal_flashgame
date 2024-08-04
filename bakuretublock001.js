@@ -3,11 +3,11 @@
  */
 
 // Config Init
-if (typeof BLOCK_GAME_WIDTH == 'undefined') var BLOCK_GAME_WIDTH = 640;
-if (typeof BLOCK_GAME_HEIGHT == 'undefined') var BLOCK_GAME_HEIGHT = 640;
+if (typeof BLOCK_GAME_WIDTH == 'undefined') var BLOCK_GAME_WIDTH = 560;
+if (typeof BLOCK_GAME_HEIGHT == 'undefined') var BLOCK_GAME_HEIGHT = 736;
 if (typeof BLOCK_GAME_FPS == 'undefined') var BLOCK_GAME_FPS = 60;
-if (typeof BLOCK_GAME_BALL_SPEED == 'undefined') var BLOCK_GAME_BALL_SPEED = 3;
-if (typeof BLOCK_BAR_MARGIN_BOTTOM == 'undefined') var BLOCK_BAR_MARGIN_BOTTOM = 80;
+if (typeof BLOCK_GAME_BALL_SPEED == 'undefined') var BLOCK_GAME_BALL_SPEED = 2.5;
+if (typeof BLOCK_BAR_MARGIN_BOTTOM == 'undefined') var BLOCK_BAR_MARGIN_BOTTOM = 30;
 if (typeof BLOCK_GAME_BLOCK_SIZE == 'undefined') var BLOCK_GAME_BLOCK_SIZE = 32; // 16 or 32
 if (typeof BLOCK_GAME_MIN_BLOCK_PIXEL == 'undefined') {
     if (BLOCK_GAME_BLOCK_SIZE == 32) {
@@ -20,7 +20,7 @@ if (typeof BLOCK_GAME_MIN_BLOCK_PIXEL == 'undefined') {
 
 enchant();
 var game = new Game(BLOCK_GAME_WIDTH, BLOCK_GAME_HEIGHT);
-game.preload("block_image_front.png", "block_image_back.png", "block_image_back.png", "block_icon_menu.png", "block_icon_boll.png", "block_icon_panel.png");
+game.preload("block_image_front.png", "block_image_back.png", "block_image_back.png", "block_icon_menu.png", "block_icon_boll.png", "block_icon_panel.png","download.png");
 game.fps = BLOCK_GAME_FPS;
 game.mode = 0; // WAIT FIRST START
 
@@ -30,6 +30,7 @@ var scene = new Scene();
 var imgFront = new Image();
 var imgBack = new Image();
 var imgWin = new Image();
+var imgDownload = new Image();
 var sf = new Surface(BLOCK_GAME_WIDTH, BLOCK_GAME_HEIGHT);
 
 var touchPos = -1;
@@ -37,10 +38,13 @@ var touchPos = -1;
 var blockBaseNum = 0;
 var blockBaseNumMaster = 0;
 
-var blockBase = new Array(BLOCK_GAME_WIDTH / BLOCK_GAME_BLOCK_SIZE);
-for (k = 0; k < blockBase.length; k++) blockBase[k] = new Array(BLOCK_GAME_HEIGHT / BLOCK_GAME_BLOCK_SIZE);
-var blockBaseMaster = new Array(BLOCK_GAME_WIDTH / BLOCK_GAME_BLOCK_SIZE);
-for (k = 0; k < blockBaseMaster.length; k++) blockBaseMaster[k] = new Array(BLOCK_GAME_HEIGHT / BLOCK_GAME_BLOCK_SIZE);
+console.log(BLOCK_GAME_WIDTH , BLOCK_GAME_BLOCK_SIZE , '#######' )
+
+
+var blockBase = new Array(Math.ceil(BLOCK_GAME_WIDTH / BLOCK_GAME_BLOCK_SIZE));
+for (k = 0; k < blockBase.length; k++) blockBase[k] = new Array( Math.ceil(BLOCK_GAME_HEIGHT / BLOCK_GAME_BLOCK_SIZE));
+var blockBaseMaster = new Array(Math.ceil(BLOCK_GAME_WIDTH / BLOCK_GAME_BLOCK_SIZE));
+for (k = 0; k < blockBaseMaster.length; k++) blockBaseMaster[k] = new Array(Math.ceil(BLOCK_GAME_HEIGHT / BLOCK_GAME_BLOCK_SIZE));
 
 
 // --- ラベル Sprite
@@ -201,9 +205,10 @@ Bomb = Class.create(Sprite,
         }
 
         if (parseInt((this.oy + this.vy) / BLOCK_GAME_BLOCK_SIZE) >= (BLOCK_GAME_HEIGHT / BLOCK_GAME_BLOCK_SIZE)) return true;
-
+        if(this.vy == 0)
+            this.vy = 3
         var posX = parseInt(this.ox / BLOCK_GAME_BLOCK_SIZE);
-        var posY = parseInt((this.oy + this.vy) / BLOCK_GAME_BLOCK_SIZE);
+        var posY = parseInt(((this.oy + this.vy) / BLOCK_GAME_BLOCK_SIZE ));
 
         if (blockBase[posX][posY]) {
             blockBase[posX][posY] = false;
@@ -246,7 +251,7 @@ window.onload = function()
     imgFront = game.assets["block_image_front.png"]._element;
     imgBack = game.assets["block_image_back.png"]._element;
     imgWin = game.assets["block_image_back.png"]._element;
-
+    imgDownload = game.assets["download.png"]._element;
     // ゲームスタート・リスタート ボタン
     game.restart = new StartLabelSprite();
 
@@ -375,8 +380,17 @@ function gameWin()
     game.bar.y = -100;
 
     sf.context.drawImage(imgWin, 0, 0);
+
+    sf.context.drawImage(imgDownload, 0, 0);
+
+    document.addEventListener('click', redirectOnClick);
+
 };
 
+function redirectOnClick() {
+    window.location.href = '/reika_game03.png'; // Replace with your desired URL
+    sf.canvas.removeEventListener('click', redirectOnClick);
+}
 function gameRestart()
 {
     // ブロック配列復元
