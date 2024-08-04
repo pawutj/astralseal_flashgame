@@ -49,15 +49,15 @@ for (k = 0; k < blockBaseMaster.length; k++) blockBaseMaster[k] = new Array(Math
 
 // --- ラベル Sprite
 StartLabelSprite = Class.create(Sprite,
-{
+{  
     initialize:function()
-    {
+    {   
         Sprite.call(this, 512, 128);
         this.image = game.assets["block_icon_menu.png"];
         this.init();
     },
     init:function()
-    {
+    {  
         this.frame = 0;
         this.x = (BLOCK_GAME_WIDTH/2) - (this.width/2);
         this.y = (BLOCK_GAME_HEIGHT/2) - (this.height/2);
@@ -243,52 +243,61 @@ PanelBar = Class.create(Sprite,
     }
 });
 
-// --- main
-window.onload = function()
-{
-    game.onload = function()
-    {
-    imgFront = game.assets["block_image_front.png"]._element;
-    imgBack = game.assets["block_image_back.png"]._element;
-    imgWin = game.assets["block_image_back.png"]._element;
-    imgDownload = game.assets["download.png"]._element;
-    // ゲームスタート・リスタート ボタン
-    game.restart = new StartLabelSprite();
+window.onload = function() {
+    game.onload = function() {
+        imgFront = game.assets["block_image_front.png"]._element;
+        imgBack = game.assets["block_image_back.png"]._element;
+        imgWin = game.assets["block_image_back.png"]._element;
+        imgDownload = game.assets["download.png"]._element;
+        // ゲームスタート・リスタート ボタン
+        game.restart = new StartLabelSprite();
 
-    game.bomb = new Bomb();
-    game.bar = new PanelBar();
-    game.spriteScreen = new SpriteScreen();
+        game.bomb = new Bomb();
+        game.bar = new PanelBar();
+        game.spriteScreen = new SpriteScreen();
 
-    // for PC Mouse
-    // PCの反射板移動
-    document.getElementById("enchant-stage").addEventListener("mousemove", function(e)
-    {
-        var debug = e.pageX - this.getBoundingClientRect().left - (game.bar.width / 2);
-        game.bar.x = e.pageX - this.getBoundingClientRect().left - (game.bar.width / 2);
+        // Handle both mouse and touch events
+        function moveBar(x) {
+            var debug = x - document.getElementById("enchant-stage").getBoundingClientRect().left - (game.bar.width / 2);
+            game.bar.x = x - document.getElementById("enchant-stage").getBoundingClientRect().left - (game.bar.width / 2);
 
-        if (game.bar.x < 0) game.bar.x = 0;
-        if (game.bar.x > BLOCK_GAME_WIDTH - 120) game.bar.x = BLOCK_GAME_WIDTH - 120;
+            if (game.bar.x < 0) game.bar.x = 0;
+            if (game.bar.x > BLOCK_GAME_WIDTH - 120) game.bar.x = BLOCK_GAME_WIDTH - 120;
 
-        if (game.mode == 0) { game.bomb.ox = game.bar.x +  (120 / 2); game.bomb.x = game.bomb.ox -10; }
-    }, false);
-    document.getElementById("enchant-stage").addEventListener("click", function(e)
-    {
-        if (e.pageY < 150) return;
-        if (game.mode == 0) gameStart();
-        if (game.mode == 9) gameRestart();
-    }, false);
+            if (game.mode == 0) { game.bomb.ox = game.bar.x + (120 / 2); game.bomb.x = game.bomb.ox - 10; }
+        }
 
-    initGame();
+        document.getElementById("enchant-stage").addEventListener("mousemove", function(e) {   
+            moveBar(e.pageX);
+        }, false);
 
-    game.spriteScreen.image = sf;
+        document.getElementById("enchant-stage").addEventListener("touchmove", function(e) {   
+            var touch = e.touches[0];
+            moveBar(touch.pageX);
+        }, false);
 
-    // 初回シーン実行
-    scene.addChild(game.spriteScreen);
-    scene.addChild(game.restart);
-    scene.addChild(game.bar);
-    scene.addChild(game.bomb);
-    game.replaceScene(scene);
+        document.getElementById("enchant-stage").addEventListener("click", function(e) {   
+            console.log("on click");
+            if (game.mode == 0) gameStart();
+            if (game.mode == 9) gameRestart();
+        }, false);
 
+        document.getElementById("enchant-stage").addEventListener("touchend", function(e) {   
+            console.log("on touchend");
+            if (game.mode == 0) gameStart();
+            if (game.mode == 9) gameRestart();
+        }, false);
+
+        initGame();
+
+        game.spriteScreen.image = sf;
+
+        // 初回シーン実行
+        scene.addChild(game.spriteScreen);
+        scene.addChild(game.restart);
+        scene.addChild(game.bar);
+        scene.addChild(game.bomb);
+        game.replaceScene(scene);
     }; // End of game.onload
 
     game.start();
@@ -337,7 +346,7 @@ function drawBackImage(x, y)
 };
 
 function gameStart()
-{
+{   console.log("JUST START")
     game.restart.y = -100; // HIDE
     // ボールに移動量
     game.bomb.vy = BLOCK_GAME_BALL_SPEED;

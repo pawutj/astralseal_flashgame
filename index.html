@@ -14,6 +14,7 @@
         justify-content: center;
         align-items: center;
         height: 100vh;
+        width: 100vw;
         position: relative;
         overflow: hidden;
     }
@@ -28,15 +29,6 @@
         background-size: cover;
         /* filter: blur(8px) brightness(50%); */
         z-index: -1;
-    }
-    .overlay {
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background-color: rgba(0, 0, 0, 0.5); /* Adjust the alpha value to reduce lightness */
-        z-index: 0;
     }
     .container {
         display: flex;
@@ -56,12 +48,11 @@
 </style>
 </head>
 <body>
-<div class="overlay"></div>
-<img src="library_logo.png" alt="Logo" class="logo">
+<!-- <img src="library_logo.png" alt="Logo" class="logo"> -->
 <script type="text/javascript" charset="utf-8">
 var userAgent = navigator.userAgent.toLowerCase();
 if(userAgent.indexOf("iphone") == -1 && userAgent.indexOf("android") == -1) {
-    document.write('<div class="container"><div id="enchant-stage" class ="zoomout" style="width:640px; height:640px; cursor:hand"></div></div>');
+    document.write('<div class="container"><div id="enchant-stage" class ="zoomout" style="width:560px; height:736px; cursor:hand"></div></div>');
 }
 </script>
 <script src="bakuretublock001.js"></script>
