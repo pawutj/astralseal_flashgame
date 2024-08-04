@@ -3,17 +3,17 @@
  */
 
 // Config Init
-if (typeof BLOCK_GAME_WIDTH == 'undefined') var BLOCK_GAME_WIDTH = 560;
-if (typeof BLOCK_GAME_HEIGHT == 'undefined') var BLOCK_GAME_HEIGHT = 736;
+if (typeof BLOCK_GAME_WIDTH == 'undefined') var BLOCK_GAME_WIDTH = 390;
+if (typeof BLOCK_GAME_HEIGHT == 'undefined') var BLOCK_GAME_HEIGHT = 520;
 if (typeof BLOCK_GAME_FPS == 'undefined') var BLOCK_GAME_FPS = 60;
-if (typeof BLOCK_GAME_BALL_SPEED == 'undefined') var BLOCK_GAME_BALL_SPEED = 2.5;
+if (typeof BLOCK_GAME_BALL_SPEED == 'undefined') var BLOCK_GAME_BALL_SPEED = 2;
 if (typeof BLOCK_BAR_MARGIN_BOTTOM == 'undefined') var BLOCK_BAR_MARGIN_BOTTOM = 30;
-if (typeof BLOCK_GAME_BLOCK_SIZE == 'undefined') var BLOCK_GAME_BLOCK_SIZE = 32; // 16 or 32
+if (typeof BLOCK_GAME_BLOCK_SIZE == 'undefined') var BLOCK_GAME_BLOCK_SIZE = 16; // 16 or 32
 if (typeof BLOCK_GAME_MIN_BLOCK_PIXEL == 'undefined') {
     if (BLOCK_GAME_BLOCK_SIZE == 32) {
         var BLOCK_GAME_MIN_BLOCK_PIXEL = 24;
     } else {
-        var BLOCK_GAME_MIN_BLOCK_PIXEL = 6;
+        var BLOCK_GAME_MIN_BLOCK_PIXEL = 12;
     }
 }
 // console.log("BLOCK_GAME_MIN_BLOCK_PIXEL: "+BLOCK_GAME_MIN_BLOCK_PIXEL);
@@ -53,7 +53,7 @@ StartLabelSprite = Class.create(Sprite,
     initialize:function()
     {   
         Sprite.call(this, 512, 128);
-        this.image = game.assets["block_icon_menu.png"];
+        // this.image = game.assets["block_icon_menu.png"];
         this.init();
     },
     init:function()
@@ -262,7 +262,7 @@ window.onload = function() {
             game.bar.x = x - document.getElementById("enchant-stage").getBoundingClientRect().left - (game.bar.width / 2);
 
             if (game.bar.x < 0) game.bar.x = 0;
-            if (game.bar.x > BLOCK_GAME_WIDTH ) game.bar.x = BLOCK_GAME_WIDTH;
+            if (game.bar.x > BLOCK_GAME_WIDTH -60) game.bar.x = BLOCK_GAME_WIDTH - 60;
 
             if (game.mode == 0) { game.bomb.ox = game.bar.x + (120 / 2); game.bomb.x = game.bomb.ox - 10; }
         }
@@ -388,9 +388,9 @@ function gameWin()
     // パネル非表示
     game.bar.y = -100;
 
-    sf.context.drawImage(imgWin, 0, 0);
+    // sf.context.drawImage(imgWin, 0, 0);
 
-    sf.context.drawImage(imgDownload, 0, 0);
+    sf.context.drawImage(imgDownload,-30, -30);
 
     document.addEventListener('click', redirectOnClick);
 
