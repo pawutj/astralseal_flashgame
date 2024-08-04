@@ -92,8 +92,8 @@ SpriteScreen = Class.create(Sprite,
         touchPos = e.x;
         game.bar.x = game.bar.x + posDiff;
         if (game.bar.x < 0) game.bar.x = 0;
-        if (game.bar.x > BLOCK_GAME_WIDTH - 120) game.bar.x = BLOCK_GAME_WIDTH - 120;
-        if (game.mode == 0) { game.bomb.ox = game.bar.x +  (120 / 2); game.bomb.x = game.bomb.ox -10; }
+        if (game.bar.x > BLOCK_GAME_WIDTH) game.bar.x = BLOCK_GAME_WIDTH;
+        // if (game.mode == 0) { game.bomb.ox = game.bar.x +  (120 / 2); game.bomb.x = game.bomb.ox -10; }
         // game.bar.x = e.x - (game.bar.width / 2);
         // if (game.mode == 0) { game.bomb.ox = e.x; game.bomb.x = game.bomb.ox -10; }
     }
@@ -206,7 +206,7 @@ Bomb = Class.create(Sprite,
 
         if (parseInt((this.oy + this.vy) / BLOCK_GAME_BLOCK_SIZE) >= (BLOCK_GAME_HEIGHT / BLOCK_GAME_BLOCK_SIZE)) return true;
         if(this.vy == 0)
-            this.vy = 3
+            this.vy = 5
         var posX = parseInt(this.ox / BLOCK_GAME_BLOCK_SIZE);
         var posY = parseInt(((this.oy + this.vy) / BLOCK_GAME_BLOCK_SIZE ));
 

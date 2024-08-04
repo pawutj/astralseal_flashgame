@@ -4,7 +4,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <title>Re:Fragment ~Summer Pinball~</title>
 <script src="enchant.min.js"></script>
-<meta name="viewport" content="width=device-width">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <style>
     body {
         margin: 0px;
@@ -39,16 +39,27 @@
         z-index: 1;
     }
     .logo {
-        width : 300px;
+        width: 300px; /* Adjust as needed for responsiveness */
+        max-width: 300px; /* Maintain a maximum width */
         position: absolute;
         top: 10px;
         left: 10px;
         z-index: 2;
     }
+    @media (max-width: 768px) {
+        .logo {
+          width: 300px; /* Adjust as needed for smaller screens */
+        }
+    }
+    @media (max-width: 480px) {
+        .logo {
+          width: 300px;; /* Adjust as needed for very small screens */
+        }
+    }
 </style>
 </head>
 <body>
-<!-- <img src="library_logo.png" alt="Logo" class="logo"> -->
+<img src="library_logo.png" alt="Logo" class="logo">
 <script type="text/javascript" charset="utf-8">
 var userAgent = navigator.userAgent.toLowerCase();
 if(userAgent.indexOf("iphone") == -1 && userAgent.indexOf("android") == -1) {
