@@ -8,19 +8,19 @@ if (typeof BLOCK_GAME_HEIGHT == 'undefined') var BLOCK_GAME_HEIGHT = 520;
 if (typeof BLOCK_GAME_FPS == 'undefined') var BLOCK_GAME_FPS = 60;
 if (typeof BLOCK_GAME_BALL_SPEED == 'undefined') var BLOCK_GAME_BALL_SPEED = 2;
 if (typeof BLOCK_BAR_MARGIN_BOTTOM == 'undefined') var BLOCK_BAR_MARGIN_BOTTOM = 30;
-if (typeof BLOCK_GAME_BLOCK_SIZE == 'undefined') var BLOCK_GAME_BLOCK_SIZE = 16; // 16 or 32
+if (typeof BLOCK_GAME_BLOCK_SIZE == 'undefined') var BLOCK_GAME_BLOCK_SIZE = 32; // 16 or 32
 if (typeof BLOCK_GAME_MIN_BLOCK_PIXEL == 'undefined') {
     if (BLOCK_GAME_BLOCK_SIZE == 32) {
-        var BLOCK_GAME_MIN_BLOCK_PIXEL = 24;
+        var BLOCK_GAME_MIN_BLOCK_PIXEL = 32;
     } else {
-        var BLOCK_GAME_MIN_BLOCK_PIXEL = 12;
+        var BLOCK_GAME_MIN_BLOCK_PIXEL = 32;
     }
 }
 // console.log("BLOCK_GAME_MIN_BLOCK_PIXEL: "+BLOCK_GAME_MIN_BLOCK_PIXEL);
 
 enchant();
 var game = new Game(BLOCK_GAME_WIDTH, BLOCK_GAME_HEIGHT);
-game.preload("block_image_front.png", "block_image_back.png", "block_image_back.png", "block_icon_menu.png", "block_icon_boll.png", "block_icon_panel.png","download.png");
+game.preload("block_image_front.png", "block_image_back.png", "reika_game03.png", "block_icon_menu.png", "block_icon_boll.png", "block_icon_panel.png","download.png");
 game.fps = BLOCK_GAME_FPS;
 game.mode = 0; // WAIT FIRST START
 
@@ -205,8 +205,9 @@ Bomb = Class.create(Sprite,
         }
 
         if (parseInt((this.oy + this.vy) / BLOCK_GAME_BLOCK_SIZE) >= (BLOCK_GAME_HEIGHT / BLOCK_GAME_BLOCK_SIZE)) return true;
-        if(this.vy == 0)
-            this.vy = 5
+        if (this.vy == 0) {
+            this.vy = Math.floor(Math.random() * 8); // Generates a random integer between 0 and 10
+        }
         var posX = parseInt(this.ox / BLOCK_GAME_BLOCK_SIZE);
         var posY = parseInt(((this.oy + this.vy) / BLOCK_GAME_BLOCK_SIZE ));
 
@@ -390,9 +391,10 @@ function gameWin()
 
     // sf.context.drawImage(imgWin, 0, 0);
 
-    sf.context.drawImage(imgDownload,-30, -30);
+    // sf.context.drawImage(imgDownload,-30, -30);
 
-    document.addEventListener('click', redirectOnClick);
+    // document.addEventListener('click', redirectOnClick);
+    window.location.href = '/reika_game03.png';
 
 };
 
