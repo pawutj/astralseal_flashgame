@@ -20,7 +20,7 @@ if (typeof BLOCK_GAME_MIN_BLOCK_PIXEL == 'undefined') {
 
 enchant();
 var game = new Game(BLOCK_GAME_WIDTH, BLOCK_GAME_HEIGHT);
-game.preload("block_image_front_2026.png", "block_image_back_2026.png", "reika_game03.png", "block_icon_menu.png", "block_icon_boll.png", "block_icon_panel.png","download.png");
+game.preload("block_image_front_2026.png", "block_image_back_2026.png", "lecia_game.png", "block_icon_menu.png", "block_icon_boll.png", "block_icon_panel.png","download.png");
 game.fps = BLOCK_GAME_FPS;
 game.mode = 0; // WAIT FIRST START
 
@@ -394,12 +394,12 @@ function gameWin()
     // sf.context.drawImage(imgDownload,-30, -30);
 
     // document.addEventListener('click', redirectOnClick);
-    window.location.href = '/reika_game03.png';
+    window.location.href = '/lecia_game.png';
 
 };
 
 function redirectOnClick() {
-    window.location.href = '/reika_game03.png'; // Replace with your desired URL
+    window.location.href = '/lecia_game.png'; // Replace with your desired URL
     sf.canvas.removeEventListener('click', redirectOnClick);
 }
 function gameRestart()
